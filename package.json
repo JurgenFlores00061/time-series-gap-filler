@@ -1,0 +1,17 @@
+{
+  "name": "time-series-gap-filler",
+  "version": "0.1.0",
+  "description": "Finds missing time intervals in sorted epoch-millisecond timestamps and returns the gaps at a fixed resolution.",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": "./src/index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {}
+}
