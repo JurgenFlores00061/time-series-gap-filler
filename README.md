@@ -21,3 +21,10 @@ The trade-off is that gaps are anchored to the observed timestamps rather than t
 Jitter. If your data can be late by some fraction of a step, pass `toleranceMs` so the filler does not turn noise into gaps. The default tolerance is `stepMs / 2` — at exactly half a step the slot is ambiguous between the preceding and following boundary, so we choose not to manufacture a gap there. If your jitter is larger than half a step, raise `toleranceMs` explicitly.
 
 The exported API is exactly `{ findGaps }`. `findGaps(timestamps, { stepMs, toleranceMs? })` returns an array of `[gapStartMs, gapEndMs]` pairs where `gapEndMs` is `gapStartMs + stepMs`. `gapEndMs` may equal a timestamp that is present in the input — it is the bookend of the missing slot, not itself reported as missing.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
